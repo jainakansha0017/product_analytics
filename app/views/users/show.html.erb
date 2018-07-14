@@ -1,2 +1,55 @@
-You have successfully created the page
+<span style="margin-left:1em">Hi <%= @user.name %></span>
+<br>
+<span style="margin-left:1em">Check out our category and their products:</span>
+<div style="margin-left:1em" ng-app="App" ng-controller="Product">
+<!-- <div class="row first_row">
+	<div class="col-xs-2">
+	 <div class="btn-group" role="group" aria-label="Select Investor"> 
+            Select Category
+        
+    </div>
+        <div class="col-xs-5">
+             <select class="form-control" ng-model="selectcategory" ng-options= "item.category for item in category"> </select>
+          </div> -->
+
+  <div class="form-group"> 
+    <div class="row">
+        <div class="col-xs-2"><strong>Select Category</strong></div>
+        <div class="col-xs-8">  <!--added the class validtor-->
+           <select class="form-control" ng-model="selectcategory" ng-options= "item.category for item in category"> </select>
+        </div>
+    </div> 
+</div>
+		
+	<!-- </div>    	 -->
+</div>
+</div>
 <%= link_to "logout!", logout_path, method: "delete" %></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script>
+
+angular.module('App', [])
+.controller('Product', function($scope,$http) 
+{
+	
+  // var mq = window.matchMedia("screen and (max-width: 767px)");
+  // if (mq.matches) 
+  //   {    
+  //      // $(".third_row").after($(".col-xs-10.col-sm-4"));
+  //      // $(".third_row").insertBefore( $( ".second_row .col-xs-12.col-sm-2" ) );
+  //      $( ".second_row .col-xs-12.col-sm-2" ).insertAfter( $( ".third_row" ) );
+  //   }
+
+	$http.get("/products/disp_product")
+    .then(function (response) 
+    {
+    	console.log(response);
+    	$scope.category=response.data.product;
+    	$scope.selectcategory=response.data.product[0];
+    	// console.log($scope.selectinvestor)
+    	// $scope.account_statement();
+
+    });
+});
+</script>

@@ -16,8 +16,8 @@ class UsersController < ApplicationController
     end
   end
   def show
-  	a=User.find(params[:id])
-  	puts a
+  	@user=User.find(params[:id])
+  	puts @user
   end
   private
 
