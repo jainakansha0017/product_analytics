@@ -15,6 +15,10 @@ require 'csv'
 
 	def disp_product
 		product=ActiveRecord::Base.connection.select_all("select p.schemecode,p.rating,p.s_name,p.category,count(*) count,sum(clicks) sum from products p left outer join mappings m on m.schemecode=p.schemecode group by p.schemecode order by count(*) desc ,sum(clicks) desc")
-		render :json => {:product => product}
+		category=ActiveRecord::Base.connection.select_all("select distinct(category) from products order by category")
+		render :json => {:product => product,:category => category}
+	end
+	def ind_product
+		@a= params[:id]
 	end
 end

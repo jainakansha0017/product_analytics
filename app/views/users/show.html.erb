@@ -1,7 +1,8 @@
-<span style="margin-left:1em">Hi <%= @user.name %></span>
+<div style="margin-left:2em">
+<span>Hi <%= @user.name %></span>
 <br>
-<span style="margin-left:1em">Check out our category and their products:</span>
-<div style="margin-left:1em" ng-app="App" ng-controller="Product">
+<span>Check out our category and their products:</span>
+<div ng-app="App" ng-controller="Product">
 <!-- <div class="row first_row">
 	<div class="col-xs-2">
 	 <div class="btn-group" role="group" aria-label="Select Investor"> 
@@ -14,18 +15,42 @@
 
   <div class="form-group"> 
     <div class="row">
-        <div class="col-xs-2"><strong>Select Category</strong></div>
-        <div class="col-xs-8">  <!--added the class validtor-->
+        <div class="col-xs-2 btn"><strong>Select Category</strong></div>
+        <div class="col-xs-8"> 
            <select class="form-control" ng-model="selectcategory" ng-options= "item.category for item in category"> </select>
         </div>
     </div> 
 </div>
-		
+	
+
+	<table class="table table-striped table-condensed table-bordered table-responsive FundDetails" style="">
+		<thead>
+			<tr>
+				<th>Fund Name</th>
+    			<th>Rating</th>
+    			<th>Category</th>
+    			<th>No of User </th>
+    			<th>Total clicks </th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr ng-repeat="x in product | filter: selectcategory.category">
+				<td><a href="/Product/{{x.schemecode}}">{{ x.s_name }}</td>
+				<td>{{ x.rating  }}</td>
+				<td>{{ x.category }}</td>
+				<td>{{ x.count }}</td>
+				<td>{{ x.sum  }}</td>
+				
+			</tr>
+			
+		</tbody>
+	</table>	
 	<!-- </div>    	 -->
 </div>
 </div>
 <%= link_to "logout!", logout_path, method: "delete" %></p>
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script>
 
@@ -45,8 +70,9 @@ angular.module('App', [])
     .then(function (response) 
     {
     	console.log(response);
-    	$scope.category=response.data.product;
-    	$scope.selectcategory=response.data.product[0];
+    	$scope.category=response.data.category;
+    	$scope.selectcategory=response.data.category[0];
+    	$scope.product=response.data.product;
     	// console.log($scope.selectinvestor)
     	// $scope.account_statement();
 

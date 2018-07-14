@@ -8,6 +8,7 @@ root 'users#new'
   resources :users
   get "products/product_import"
   get 'products/disp_product'
+   match '/Product/:id', to: 'products#ind_product', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
