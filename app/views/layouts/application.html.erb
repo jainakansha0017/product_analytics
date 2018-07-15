@@ -4,10 +4,11 @@
   <title>ProductAnalytics</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag "/assets/style.css" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div style="background-color:#17abcc; text-align:center;color:white;padding:16px 16px"><div>Welcome to Product Analytics Page</div></div>
+	<div class="head"><div>Welcome to Product Analytics Page</div></div>
 
 <%= yield %>
 

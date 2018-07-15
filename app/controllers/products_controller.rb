@@ -19,6 +19,22 @@ require 'csv'
 		render :json => {:product => product,:category => category}
 	end
 	def ind_product
-		@a= params[:id]
+		if current_user!=nil
+			product= params[:id]
+			mapping=Mapping.where(:user_id => current_user.id , :schemecode => product).first
+			if mapping.present?
+				count=mapping.clicks+1
+				ActiveRecord::Base.connection.update("update mappings set clicks="+count.to_s+" where user_id="+current_user.id.to_s+" and schemecode="+product.to_s)
+			else
+				mapping=Mapping.new
+				mapping.user_id=current_user.id
+				mapping.schemecode=product
+				mapping.clicks=1
+				mapping.save
+			end
+			@prod_desc=Product.find_by_schemecode(product)
+		else
+			redirect_to root_path
+		end
 	end
 end
