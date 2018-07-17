@@ -31,7 +31,7 @@
 							<td><a href="/Product/{{x.schemecode}}">{{ x.s_name }}</td>
 							<td>{{ x.rating  }}</td>
 							<td>{{ x.category }}</td>
-							<td>{{ x.sum }}</td>
+							<td>{{ x.count }}</td>
 							<td>{{ x.clicks  }}</td>	
 						</tr>		
 					</tbody>
@@ -49,9 +49,17 @@ angular.module('App', [])
     .then(function (response) 
     {
     	console.log(response);
-    	$scope.category=response.data.category;
-    	$scope.selectcategory=response.data.category[0];
-    	$scope.product=response.data.product;   
+    	if(response.data.category!="error")
+    	{
+	    	$scope.category=response.data.category;
+	    	$scope.selectcategory=response.data.category[0];
+	    	$scope.product=response.data.product;
+	    }
+	    else
+	    {
+	    	alert("Please try again later")
+	    } 
+
 
     });
 });

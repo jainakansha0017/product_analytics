@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
   get 'sessions/new'
-root 'users#new'
-  # post '/signup',  to: 'users#create'
-   get    '/login',   to: 'sessions#new'
+  root 'users#new'
+ 
+  get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   resources :users
   get "products/product_import"
   get 'products/disp_product'
-   match '/Product/:id', to: 'products#ind_product', via: 'get'
+  get "products/category_import"
+  match '/Product/:id', to: 'products#ind_product', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
